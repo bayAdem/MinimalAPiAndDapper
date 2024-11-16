@@ -1,0 +1,141 @@
+MediatR ve Command/Handler Yapýlarý
+1. Command ve Handler Kavramlarý
+Command (Komut) ve Handler (Ýþleyici) yapýlarý, genellikle CQRS (Command Query Responsibility Segregation (Komut Sorgu Sorumluluðu Ayrýmý)) tasarým deseninde kullanýlýr. Bu desen, yazma (iþlem) ve okuma (sorgulama) iþlemlerini ayýrarak daha iyi ölçeklenebilirlik ve bakým saðlamak amacýyla kullanýlýr.
+
+Command: Bir iþlemi tetikleyen sýnýftýr. Sistemde yapýlacak deðiþikliði, örneðin bir kullanýcý ekleme, güncelleme veya silme iþlemini temsil eder. Bir Command sýnýfý, iþlemi gerçekleþtirecek olan verileri taþýr. Bu veriler, iþlemle ilgili gerekli tüm bilgileri içerir.
+
+Örnek: AddCustomerCommand 
+FullName, Email, PhoneNumber, Address gibi müþteri bilgileri taþýyan bir sýnýf.
+Müþteri ekleme iþlemi yapýlmasýný saðlayacak olan veriyi taþýr.
+Handler: Bir Command'ýn iþlenmesinden sorumlu sýnýftýr. Yani, Command'ý alýr ve iþlemi gerçekleþtiren kodu çalýþtýrýr. Handler, tipik olarak veri iþlemlerini (ekleme, güncelleme, silme gibi) gerçekleþtirir.
+
+Örnek: AddCustomerCommandHandler
+Bu handler, AddCustomerCommand'ý alýr, veritabanýna müþteri ekler ve iþlem sonucunu geri döner.
+2. ICommand Arayüzü ve Implementasyonu
+ICommand<TResponse>: Bu, MediatR'ýn saðladýðý genel bir arayüzdür. Command nesnesi ile bir iþlem yapýldýðýnda, genellikle iþlem sonucunda dönecek bir Response (Yanýt) beklenir. Örneðin, bir müþteri eklenmesi iþlemi sonucunda customerId dönebilir.
+
+ICommand'ýn TResponse türü, iþlem sonucunda dönecek veri tipini belirtir. Bu, bir yanýt sýnýfý olabilir.
+
+Örnek: AddCustomerResponse
+Müþteri ekleme iþlemi sonrasý dönecek olan yanýtý (örneðin, eklenen müþterinin ID'si) kapsar.
+ICommand genellikle bir Handler sýnýfýnda MediatR aracýlýðýyla iþlenir. ICommandHandler<TCommand, TResponse> arayüzü, Command'ýn iþlenmesi için kullanýlan ve TCommand türündeki Command nesnesini iþleyen sýnýfý tanýmlar.
+
+Örnek: AddCustomerCommandHandler : ICommandHandler<AddCustomerCommand, AddCustomerResponse>
+3. Endpoint ve Request Kullanýmý
+Endpoint: Web API'lerinde, bir istemciden gelen HTTP isteklerine karþýlýk veren sýnýflardýr. FastEndpoints gibi framework'lerde, endpoint'ler belirli HTTP metodlarýna (GET, POST, PUT, DELETE) karþýlýk gelir. Her endpoint, genellikle Request nesnelerini alýr, iþleme baþlar ve Response nesnesi döner.
+
+Request: Bir endpoint'e gelen HTTP isteðiyle birlikte gelen verileri kapsayan sýnýftýr. Bu, kullanýcýdan alýnan parametreleri içerir. Örneðin, bir müþteri eklemek için POST isteði gönderildiðinde, bu istekte müþterinin adý, e-posta adresi ve telefon numarasý gibi bilgiler yer alýr. Bu veriler Request sýnýfýnda tanýmlanýr.
+
+Örnek: AddCustomerRequest
+FullName, Email, PhoneNumber gibi bilgileri içerir.
+Handler'lar, genellikle Request nesnelerini alarak, Command'ý tetiklerler ve iþlem sonucunda bir Response dönerler.
+
+Örnek: AddCustomerEndPoint
+AddCustomerRequest verilerini alýr, bir AddCustomerCommand oluþturur ve MediatR aracýlýðýyla AddCustomerCommandHandler'ý çaðýrýr.
+Ýþlem sonucu, genellikle bir AddCustomerResponse döner.
+4. Command, Handler ve Request/Response Akýþý
+User (Client):
+Kullanýcý, API'ye bir HTTP Request gönderir. Örneðin, bir müþteri eklemek için POST isteði yapýlýr.
+Endpoint:
+API endpoint'i bu isteði karþýlar. Endpoint sýnýfý, gelen Request'i iþler, gerekirse doðrulamalar yapar ve uygun Command'ý oluþturur.
+MediatR:
+MediatR, Request'i alýr ve ilgili Command'ý Handler ile iþler. Handler'lar, aslýnda Command'larýn nasýl iþleneceðini belirler.
+Handler:
+Handler, Command'ýn iþlenmesini saðlar. Örneðin, bir müþteri ekleme iþleminde, Handler'lar veritabanýna veri ekler ve iþlem sonucunu döner.
+Response:
+Sonuç olarak, iþlem tamamlanýr ve Response döner. Bu, genellikle iþlem sonucunu (baþarý/baþarýsýzlýk, yeni oluþturulan nesnenin ID'si vb.) içerir.
+Genel Akýþ ve Kavramlar:
+Command: Ýþlemi baþlatan veri nesnesidir. Command verisi, iþlem için gerekli tüm bilgileri taþýr (örneðin, yeni bir müþteri için gerekli bilgiler).
+Handler: Command'ý iþleyen ve iþlemi gerçekleþtiren sýnýftýr. Handler'lar genellikle Command verilerini alýr ve ilgili veritabaný iþlemlerini, iþ mantýðýný gerçekleþtirir.
+ICommand: Bir Command'ýn temel arayüzüdür. Her Command, ICommand arayüzünü implement eder ve genellikle iþlem sonucunda bir Response döner.
+ICommandHandler: Command'larý iþleyen sýnýflarý tanýmlar. ICommandHandler'lar MediatR tarafýndan tetiklenir.
+Endpoint: API uç noktasýdýr. Request verilerini alýr, iþlem için uygun Command'ý oluþturur ve MediatR aracýlýðýyla iþlemi baþlatýr.
+Ýmplementasyon Örneði:
+Bir müþteri eklemek için akýþý örnekleyelim:
+
+Endpoint:
+
+AddCustomerEndPoint, gelen veriyi (name, email, etc.) alýr.
+Verileri AddCustomerCommand'a dönüþtürür.
+MediatR aracýlýðýyla AddCustomerCommandHandler'ý çaðýrýr.
+
+Handler:
+AddCustomerCommandHandler, yeni bir müþteri oluþturur ve veritabanýna ekler.
+
+Response:
+Ýþlem tamamlandýðýnda, AddCustomerResponse (müþteri ID'si) döner.
+
+Sonuç Olarak:
+Command ve Handler yapýlarý, sistemdeki veri iþlemlerinin mantýðýný ve akýþýný düzenler.
+Endpoint'ler, kullanýcýlardan gelen HTTP isteklerini alýr, gerekli Request verilerini oluþturur ve bu verileri Command'a dönüþtürüp Handler'larý tetikler.
+ICommand ve ICommandHandler, iþlemin nasýl yapýlacaðýný ve hangi veriyle çalýþýlacaðýný belirler.
+
+
+1-Endpoint Metotlarý (FastEndpoints)
+Configure() Metodu:
+Configure metodu, endpoint’in yapýlandýrýlmasý için kullanýlýr. Bu metot içerisinde HTTP metodunu (GET, POST, PUT, DELETE) ve endpoint’in özelliklerini (auth, routing, query parameter vs.) belirtirsiniz.
+
+HandleAsync() Metodu:
+HandleAsync metodu, endpoint’te HTTP isteði iþlendiðinde çaðrýlýr. Burada Request (veri) iþlenir ve Response (yanýt) döndürülür. async olarak çalýþýr çünkü çoðu iþlem veri tabaný iþlemleri, HTTP çaðrýlarý veya benzeri I/O iþlemleri gerektirir.
+
+HandleAsync metodunda, gelen Request nesnesi ile iþlem yapýlýr ve bir Response döner.
+Request nesnesi, istemciden gelen verileri kapsar (örneðin, bir POST isteðinde kullanýcýnýn girdiði veriler).
+CancellationToken ise iþlemin iptal edilmesi durumunda kullanýlýr (özellikle uzun süren iþlemler için).
+
+
+2. IQuery ve IQueryHandler Kullanýmý
+Query ve IQueryHandler, CQRS deseninde okuma (sorgulama) iþlemleri için kullanýlan yapýlar olup, verilerin sorgulanmasýnda kullanýlýr.
+
+IQuery: Bir sorgu talebini temsil eder. Bu genellikle veri almak amacýyla kullanýlan nesnedir.
+IQueryHandler: IQuery'yi iþleyen sýnýfý ifade eder. Bu sýnýf, sorgu talebini alýr, ilgili veriyi çeker ve sonucu dön
+
+IQuery:
+Tek bir sorgu yapar.
+Bu, veritabanýna ya da baþka bir kaynaða belirli bir veriyi almak için gönderilen tek bir istek anlamýna gelir.
+
+IQueryHandler:
+Bu, bir sorguyu iþleyen sýnýftýr. Yani IQuery'yi alýr ve iþlemi gerçekleþtirir.
+Genelde veritabanýna sorgu atmak, dýþ servise istek yapmak gibi iþlemler burada yapýlýr.
+
+*** Tekli veya çoklu sorgu farký þudur: IQueryHandler tek bir sorguyu iþler, ama o sorgu bazen tek bir veri döndürebilir ya da çoklu veri döndürebir
+
+Özetle:
+IQuery: Tek bir sorgu belirtir. Örneðin, "bu müþteri ID'sine sahip müþteriyi al."
+IQueryHandler: O sorguyu iþler. Veritabanýndan o müþteri bilgisini getirir.
+
+3. ICommand ve ICommandHandler Kullanýmý
+
+ICommand: Command türündeki sýnýf, bir iþlem (yazma iþlemi, örneðin veri ekleme, güncelleme veya silme) talebini içerir. Genellikle veri üzerinde deðiþiklik yapmak için kullanýlýr.
+ICommandHandler: Command'ý iþleyen ve gerekli iþleme (veri ekleme, güncelleme vb.) gerçekleþtiren sýnýftýr.
+
+ICommand: AddCustomerCommand
+Bu sýnýf, yeni bir müþteri eklemek için gerekli verileri içerir (isim, e-posta, telefon numarasý vb.).
+
+ICommandHandler: AddCustomerCommandHandler
+Bu sýnýf, müþteri eklemek için gerekli iþlemleri gerçekleþtiren ve veritabanýna ekleme yapan sýnýftýr.
+
+4. ISender ve HandleAsync Kullanýmý
+
+ISender, MediatR kütüphanesinin saðladýðý bir arayüzdür ve command ya da query göndermeye yarar. ISender, genellikle endpointlerde kullanýlýr ve bir komut ya da sorgu gönderir.
+
+HandleAsync metodunda, ISender kullanýlarak AddCustomerCommand gönderilir ve iþlem gerçekleþtirilir.
+ISender.Send(), MediatR tarafýndan komut veya sorguyu iþlemek için kullanýlýr ve ICommandHandler'ý tetikler.
+
+Özetle Kullaným Senaryolarý
+IQuery/IQueryHandler:
+Query sýnýfý, veri okuma talebini içerir (veritabaný sorgusu).
+QueryHandler ise bu sorguyu iþler, veriyi çeker ve döner.
+
+ICommand/ICommandHandler:
+Command sýnýfý, iþlem talebini içerir (veri ekleme, güncelleme, silme).
+CommandHandler bu iþlemi gerçekleþtirir.
+
+ISender:
+ISender kullanýlarak Command ya da Query gönderilir.
+ISender.Send(), ilgili Handler'ý tetikler ve iþlemi baþlatýr.
+
+HandleAsync():
+HandleAsync, endpoint'in içinde asenkron olarak çalýþýr, istekleri iþler ve yanýt döner.
+
+Endpoint Nedir?
+Bir Endpoint, HTTP isteklerini (GET, POST, PUT, DELETE vb.) iþleyen ve cevap döndüren bir uygulama bileþenidir. FastEndpoints gibi framework'ler, endpoint'lerin oluþturulmasýný basitleþtirir. FastEndpoints ile, her bir endpoint bir iþlem veya iþlevi temsil eder ve bu iþlem için gerekli veri alýr, iþlemi gerçekleþtirir ve uygun bir yanýt (response) döner.

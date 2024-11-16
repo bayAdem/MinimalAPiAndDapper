@@ -1,0 +1,10 @@
+
+
+
+GetAllCustomersQuery: Tüm müþteri verilerini almak için kullanýlan bir sorgudur.
+
+HandleAsync metodu, bu sorguyu iþleyip veritabanýndan tüm müþterileri alýr.
+
+Query Handler: Veritabanýndan ilgili veriyi çeken iþleyici sýnýfýdýr.
+
+ISender.Send(): MediatR ile sorgu gönderme iþlemini gerçekleþtirir.

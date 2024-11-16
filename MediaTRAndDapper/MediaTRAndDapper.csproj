@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="CQRS\Commands\OrderDatail\**" />
+    <Compile Remove="CQRS\Commands\Products\**" />
+    <Compile Remove="CQRS\Handlers\**" />
+    <Content Remove="CQRS\Commands\OrderDatail\**" />
+    <Content Remove="CQRS\Commands\Products\**" />
+    <Content Remove="CQRS\Handlers\**" />
+    <EmbeddedResource Remove="CQRS\Commands\OrderDatail\**" />
+    <EmbeddedResource Remove="CQRS\Commands\Products\**" />
+    <EmbeddedResource Remove="CQRS\Handlers\**" />
+    <None Remove="CQRS\Commands\OrderDatail\**" />
+    <None Remove="CQRS\Commands\Products\**" />
+    <None Remove="CQRS\Handlers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.0" />
+    <PackageReference Include="Dapper" Version="2.1.35" />
+    <PackageReference Include="FastEndpoints" Version="5.31.0" />
+    <PackageReference Include="FastEndpoints.Swagger" Version="5.31.0" />
+    <PackageReference Include="FluentValidation" Version="11.10.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+    <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.2.0" />
+  </ItemGroup>
+
+</Project>

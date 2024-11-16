@@ -10,7 +10,7 @@ namespace MediaTRAndDapper.CQRS.Commands.Product.EndPoints
 
         public override void Configure()
         {
-            Post("/AddProduct");
+            Post("/AddProduct"); 
             AllowAnonymous();
         }
 

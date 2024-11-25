@@ -1,10 +1,8 @@
-﻿using MediaTRAndDapper.Models;
+﻿namespace MediaTRAndDapper.CQRS.Commands.Customer.UpdateCustomers;
 
-namespace MediaTRAndDapper.CQRS.Commands.Customer.UpdateCustomers;
-
-public sealed record UpdateCustomerRequest(int Id,                       
-                                            string FullName,             
-                                            string Email,                   
+public sealed record UpdateCustomerRequest(int Id,
+                                            string FullName,
+                                            string Email,
                                             string PhoneNumber,
                                             string Address,
                                             DateTime? LastPasswordChange,

@@ -2,7 +2,6 @@
 using MediatR;
 using MediaTRAndDapper.CQRS.Commands.Customer.AddCustomers;
 using MediaTRAndDapper.CQRS.Commands.Customer.UpdateCustomers;
-using Microsoft.AspNetCore.Identity;
 
 namespace MediaTRAndDapper.CQRS.Commands.Customer.EndPoints
 {
@@ -28,7 +27,7 @@ namespace MediaTRAndDapper.CQRS.Commands.Customer.EndPoints
                 req.FullName,
                 req.Email,
                 req.PhoneNumber,
-                passwordHash, 
+                passwordHash,
                 passwordSalt,
                 req.LastPasswordChange,
                 req.Address,
@@ -36,7 +35,7 @@ namespace MediaTRAndDapper.CQRS.Commands.Customer.EndPoints
                 req.Deleted,
                 req.RefreshToken,
                 req.RefreshTokenExpiry ?? DateTime.UtcNow,
-                req.CreatedAt ?? DateTime.UtcNow 
+                req.CreatedAt ?? DateTime.UtcNow
             );
 
             await _sender.Send(command, ct);

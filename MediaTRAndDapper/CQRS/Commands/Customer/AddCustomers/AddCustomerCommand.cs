@@ -1,7 +1,4 @@
-﻿using MediaTRAndDapper.Common.ICommand;
-using MediaTRAndDapper.Models;
-
-namespace MediaTRAndDapper.CQRS.Commands.Customer.AddCustomers;
+﻿namespace MediaTRAndDapper.CQRS.Commands.Customer.AddCustomers;
 
 public sealed record AddCustomerCommand(
     string FullName,

@@ -5,5 +5,5 @@ public sealed record LoginResponse(LoginResponseStatus Status,
                                    string? Token = null,
                                    string RefreshToken = null)
 {
-   
+
 }

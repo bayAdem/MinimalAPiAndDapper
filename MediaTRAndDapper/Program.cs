@@ -1,15 +1,16 @@
+using FastEndpoints;
 using FluentValidation;
+using FluentValidation.AspNetCore;
+using MediaTRAndDapper.CQRS.Commands.Category.AddCategories;
+using MediaTRAndDapper.Database.DPContext;
+using MediaTRAndDapper.Services;
 using Platform.Api.Database.Repositories.Abstract;
 using Platform.Api.Database.Repositories.Concrete;
-using FluentValidation.AspNetCore;
-using MediaTRAndDapper.Database.DPContext;
-using FastEndpoints;
-using MediaTRAndDapper.CQRS.Commands.Category.AddCategories;
-using MediaTRAndDapper.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -20,7 +21,7 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Progr
 
 builder.Services.AddSingleton<DapperContext>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddTransient<IProductRepository, ProductRepository>(); 
+builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 

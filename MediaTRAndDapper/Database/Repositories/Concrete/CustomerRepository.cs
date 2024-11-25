@@ -1,9 +1,8 @@
-﻿using Dapper;
+﻿using System.Text.Json;
+using Dapper;
 using MediaTRAndDapper.Database.DPContext;
 using MediaTRAndDapper.Models;
 using Platform.Api.Database.Repositories.Abstract;
-using System.Text.Json;
-using System.Xml.Linq;
 
 namespace Platform.Api.Database.Repositories.Concrete;
 
@@ -91,6 +90,6 @@ public class CustomerRepository : ICustomerRepository
         using var connection = _context.CreateConnection();
         //var query = "Update"
 
-        return null; 
+        return null;
     }
 }

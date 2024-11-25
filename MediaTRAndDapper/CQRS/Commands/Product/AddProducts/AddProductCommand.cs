@@ -1,5 +1,4 @@
-﻿using MediatR;
-using MediaTRAndDapper.Common.ICommand;
+﻿using MediaTRAndDapper.Common.ICommand;
 
 namespace MediaTRAndDapper.CQRS.Commands.Product.AddProducts;
 

@@ -2,7 +2,7 @@
 
 public enum LoginResponseErrorType
 {
-    None,                
+    None,
     InvalidCredentials,
     AccountNotActive,
     AccountDeleted,

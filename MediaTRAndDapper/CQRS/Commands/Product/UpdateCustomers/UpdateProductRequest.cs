@@ -2,7 +2,7 @@
 
 namespace MediaTRAndDapper.CQRS.Commands.Product.UpdateCustomers;
 
-public class UpdateProductRequest (int Id,
+public class UpdateProductRequest(int Id,
                                 string Name,
                                 string Description,
                                 decimal Price,

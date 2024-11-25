@@ -17,7 +17,7 @@
 //        {
 //            _logger = logger;
 //        }
-         
+
 //        [HttpGet(Name = "GetWeatherForecast")]
 //        public IEnumerable<WeatherForecast> Get()
 //        {

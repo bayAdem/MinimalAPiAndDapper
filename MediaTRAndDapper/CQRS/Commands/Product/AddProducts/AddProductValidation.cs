@@ -1,7 +1,7 @@
 ﻿namespace MediaTRAndDapper.CQRS.Commands.Product.AddProducts;
 
-using FluentValidation;
 using System.Text.RegularExpressions;
+using FluentValidation;
 
 public class AddProductCommandValidator : AbstractValidator<AddProductCommand>
 {

@@ -1,6 +1,4 @@
-﻿using MediaTRAndDapper.Models;
-
-namespace MediaTRAndDapper.CQRS.Commands.Category.AddCategories;
+﻿namespace MediaTRAndDapper.CQRS.Commands.Category.AddCategories;
 
 public sealed record AddCategoryRequest(
     int Id,

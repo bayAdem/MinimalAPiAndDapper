@@ -13,7 +13,7 @@ namespace MediaTRAndDapper.CQRS.Commands.Product.UpdateCustomers
             {
                 return new UpdateProductResponse(false, "Product not found");
             }
-            
+
             product.Name = request.Name;
             product.Description = request.Description;
             product.Price = request.Price;

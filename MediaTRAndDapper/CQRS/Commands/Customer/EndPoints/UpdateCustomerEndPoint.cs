@@ -23,17 +23,17 @@ public class UpdateCustomerEndPoint(ISender sender) : Endpoint<UpdateCustomerReq
             req.FullName,
             req.Email,
             req.PhoneNumber,
-            req.PasswordHash,      
-            req.PasswordSalt,          
-            req.LastPasswordChange,      
+            req.PasswordHash,
+            req.PasswordSalt,
+            req.LastPasswordChange,
             req.Address,
             req.Active ?? false,
             req.Deleted ?? false,
             req.RefreshToken ?? string.Empty,
-            req.RefreshTokenExpiry,  
+            req.RefreshTokenExpiry,
             req.CreatedAt ?? DateTime.Now,
             req.NewPassword,
-            req.OrdersId           
+            req.OrdersId
         );
 
         var response = _sender.Send(command, ct);

@@ -1,12 +1,11 @@
 ﻿using MediatR;
-using MediaTRAndDapper.Common;
 using Platform.Api.Database.Repositories.Abstract;
 
 namespace MediaTRAndDapper.CQRS.Commands.Category.UpdateCategories
 {
     public class UpdateCategoryCommandHandler(ICategoryRepository categoryRepository, IProductRepository productRepository) : IRequestHandler<UpdateCategoryRequest, UpdateCategoryResponse>
     {
-       
+
         public async Task<UpdateCategoryResponse> Handle(UpdateCategoryRequest request, CancellationToken cancellationToken)
         {
             var category = await categoryRepository.GetByIdAsync(request.Id);

@@ -1,6 +1,5 @@
 ﻿using MediaTRAndDapper.Common.ICommand;
 using Platform.Api.Database.Repositories.Abstract;
-using static FastEndpoints.Ep;
 
 namespace MediaTRAndDapper.CQRS.Commands.Customer.UpdateCustomers
 {

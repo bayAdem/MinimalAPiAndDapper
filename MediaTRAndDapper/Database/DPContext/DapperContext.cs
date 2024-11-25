@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Connections;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
 
 namespace MediaTRAndDapper.Database.DPContext

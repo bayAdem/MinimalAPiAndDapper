@@ -1,6 +1,4 @@
-﻿using MediatR;
-using MediaTRAndDapper.Common.ICommand;
-using MediaTRAndDapper.Models;
+﻿using MediaTRAndDapper.Common.ICommand;
 
 namespace MediaTRAndDapper.CQRS.Commands.Category.AddCategories;
 

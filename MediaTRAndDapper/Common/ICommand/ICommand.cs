@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using MediaTRAndDapper.CQRS.Commands.Customer.AddCustomers;
 
 namespace MediaTRAndDapper.Common.ICommand;
 

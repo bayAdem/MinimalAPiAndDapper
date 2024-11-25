@@ -1,6 +1,4 @@
 ﻿using MediaTRAndDapper.Common.ICommand;
-using MediaTRAndDapper.CQRS.Commands.Category.AddCategories;
-using MediaTRAndDapper.Models;
 using Platform.Api.Database.Repositories.Abstract;
 
 namespace MediaTRAndDapper.CQRS.Commands.Product.AddProducts
@@ -9,7 +7,7 @@ namespace MediaTRAndDapper.CQRS.Commands.Product.AddProducts
     {
         public async Task Handle(AddProductCommand request, CancellationToken cancellationToken)
         {
-           ArgumentNullException.ThrowIfNull(nameof(request));
+            ArgumentNullException.ThrowIfNull(nameof(request));
 
             var product = new Models.Product
             {

@@ -1,5 +1,4 @@
 ﻿using MediaTRAndDapper.Common.IQuery;
-using MediaTRAndDapper.CQRS.Commands.Category;
 using MediaTRAndDapper.CQRS.Commands.Category.AddCategories;
 using Platform.Api.Database.Repositories.Abstract;
 

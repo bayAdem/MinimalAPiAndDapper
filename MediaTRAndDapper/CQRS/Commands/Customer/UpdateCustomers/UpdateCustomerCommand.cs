@@ -1,5 +1,4 @@
 ﻿using MediaTRAndDapper.Common.ICommand;
-using MediaTRAndDapper.Models;
 
 namespace MediaTRAndDapper.CQRS.Commands.Customer.UpdateCustomers;
 

@@ -1,7 +1,4 @@
-﻿using FastEndpoints;
-using MediatR;
-using MediaTRAndDapper.Models;
-using ICommand = MediaTRAndDapper.Common.ICommand.ICommand;
+﻿using MediatR;
 
 namespace MediaTRAndDapper.CQRS.Commands.Category.UpdateCategories;
 

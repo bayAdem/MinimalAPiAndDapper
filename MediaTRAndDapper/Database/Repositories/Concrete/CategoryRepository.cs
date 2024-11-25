@@ -48,9 +48,9 @@ public class CategoryRepository : ICategoryRepository
         var result = await connection.ExecuteAsync(query, param, commandTimeout: 500);
         if (result > 0)
         {
-            return category; 
+            return category;
         }
-        return null; 
+        return null;
     }
 
 
@@ -58,7 +58,7 @@ public class CategoryRepository : ICategoryRepository
     {
         using var connection = _context.CreateConnection();
         DynamicParameters param = new();
-        param.Add("Id",category.Id);
+        param.Add("Id", category.Id);
         param.Add("Name", category.Name);
         param.Add("Description", category.Description);
         param.Add("Products", category.Products);
@@ -68,10 +68,10 @@ public class CategoryRepository : ICategoryRepository
 
     public async Task<Category> QueryAsync(string name)
     {
-      using var connection = _context.CreateConnection();
-    var query = "SELECT * FROM Categories WHERE Name = @Name";
-    var result = await connection.QuerySingleOrDefaultAsync<Category>(query, new { Name = name });
-    return result;
+        using var connection = _context.CreateConnection();
+        var query = "SELECT * FROM Categories WHERE Name = @Name";
+        var result = await connection.QuerySingleOrDefaultAsync<Category>(query, new { Name = name });
+        return result;
     }
 
     public async Task<bool> DeleteAsync(int id)
